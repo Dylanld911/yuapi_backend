@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.yupi.project.annotation.AuthCheck;
 import com.yupi.project.common.ErrorCode;
 import com.yupi.project.exception.BusinessException;
-import com.yupi.project.model.entity.User;
+import com.yupi.yuapicommon.model.entity.User;
 import com.yupi.project.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -48,7 +48,7 @@ public class AuthInterceptor {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         // 当前登录用户
-        User user = userService.getLoginUser(request);
+        User user =userService.getLoginUser(request);
         // 拥有任意权限即通过
         if (CollectionUtils.isNotEmpty(anyRole)) {
             String userRole = user.getUserRole();

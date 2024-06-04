@@ -220,7 +220,7 @@ public class InterfaceInfoController {
         }
         // 2.判断该接口是否可以调用
         com.yupi.yuapiclientsdk.model.User user = new com.yupi.yuapiclientsdk.model.User();
-        user.setUsername("test");
+        user.setUsername("liyupi");
         String username = yuApiClient.getUserNameByPost(user);
         // if (StringUtils.isBlank(username)) {
         //     throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");

@@ -1,0 +1,24 @@
+server:
+  port: 8090 # 应用程序将运行在 8090 端口
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - AddResponseHeader=source, yupi # 为所有响应添加头部信息 "source: yupi"
+      routes:
+        - id: api_route # 路由 ID
+          uri: http://localhost:8123 # 目标 URI，所有匹配路径的请求将转发到这个地址
+          predicates:
+            - Path=/api/{api_url}/** # 路由谓词，匹配 /api/{api_url}/** 的路径
+dubbo:
+  application:
+    # 设置应用的名称
+    name: dubbo-springboot-demo-provider
+  # 指定使用 Dubbo 协议，且端口设置为 -1，表示随机分配可用端口
+  protocol:
+    name: dubbo
+    port: 22223
+  registry:
+    # 配置注册中心为 Nacos，使用的地址是 nacos://localhost:8848
+    id: nacos-registry
+    address: nacos://localhost:8848

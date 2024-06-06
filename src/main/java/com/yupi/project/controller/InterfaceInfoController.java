@@ -219,12 +219,13 @@ public class InterfaceInfoController {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         // 2.判断该接口是否可以调用
+        // todo 接口验证有待完善
         com.yupi.yuapiclientsdk.model.User user = new com.yupi.yuapiclientsdk.model.User();
         user.setUsername("liyupi");
         String username = yuApiClient.getUserNameByPost(user);
-        // if (StringUtils.isBlank(username)) {
-        //     throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
-        // }
+        if (StringUtils.isBlank(username)) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
+        }
         InterfaceInfo interfaceInfo = new InterfaceInfo();
         interfaceInfo.setId(id);
         // 3.修改接口数据库中的状态字段为上线

@@ -23,4 +23,10 @@ public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfo
         return userInterfaceInfoService.invokeCount(interfaceInfoId, userId);
     }
 
+    @Override
+    public void checkUserCallQuota(long interfaceInfoId, long userId) {
+        userInterfaceInfoService.checkUserCallQuota(interfaceInfoId, userId);
+    }
+
+
 }

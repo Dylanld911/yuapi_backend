@@ -13,4 +13,6 @@ public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
 
     boolean invokeCount(long interfaceInfoId, long userId);
 
+    void checkUserCallQuota(long interfaceInfoId, long userId);
+
 }

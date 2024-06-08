@@ -303,5 +303,34 @@ public class InterfaceInfoController {
         return ResultUtils.success(usernameByPost);
     }
 
+    @PostMapping("/randomJoke")
+    public BaseResponse<String> randomJoke(@RequestBody InterfaceInfoInvokeRequest interfaceInfoInvokeRequest,
+                                           HttpServletRequest request) {
+        // String response = HttpUtil.get("http://api.btstu.cn/yan/api.php");
+        // return ResultUtils.success(response);
+        if (interfaceInfoInvokeRequest == null || interfaceInfoInvokeRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        long id = interfaceInfoInvokeRequest.getId();
+
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if (oldInterfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        if (oldInterfaceInfo.getStatus() == InterfaceInfoStatusEnum.OFFLINE.getValue()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口已关闭");
+        }
+        // 获取当前登录用户的ak和sk，这样相当于用户自己的这个身份去调用，
+        // 也不会担心它刷接口，因为知道是谁刷了这个接口，会比较安全
+        User loginUser = userService.getLoginUser(request);
+        String accessKey = loginUser.getAccessKey();
+        String secretKey = loginUser.getSecretKey();
+        // 我们只需要进行测试调用，所以我们需要解析传递过来的参数。
+        YuApiClient tempClient = new YuApiClient(accessKey,secretKey);
+
+        String result = tempClient.randomJoke();
+        // 返回成功响应，并包含调用结果
+        return ResultUtils.success(result);
+    }
 
 }

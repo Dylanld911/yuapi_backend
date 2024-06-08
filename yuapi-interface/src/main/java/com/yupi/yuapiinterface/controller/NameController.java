@@ -1,5 +1,6 @@
 package com.yupi.yuapiinterface.controller;
 
+import cn.hutool.http.HttpUtil;
 import com.yupi.yuapiclientsdk.model.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,5 +52,11 @@ public class NameController {
        //  }
         String result = "POST 用户名字是" + user.getUsername();
         return result;
+    }
+
+    @GetMapping("/randomjoke")
+    public String randomJoke() {
+        String response = HttpUtil.get("http://api.btstu.cn/yan/api.php");
+        return response;
     }
 }

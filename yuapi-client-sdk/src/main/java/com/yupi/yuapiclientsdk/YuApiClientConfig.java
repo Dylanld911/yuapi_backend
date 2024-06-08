@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @Author LD
  */
 @Configuration
-@ConfigurationProperties("yuapi.client")
+@ConfigurationProperties("yuapi.client") //与resources中的yml或properties中的配置结合使用
 @Data
 @ComponentScan
 public class YuApiClientConfig {

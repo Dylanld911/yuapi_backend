@@ -11,4 +11,5 @@ public interface InnerUserInterfaceInfoService {
 
     boolean invokeCount(long interfaceInfoId, long userId);
 
+    void checkUserCallQuota(long interfaceInfoId, long userId);
 }

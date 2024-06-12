@@ -4,7 +4,8 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - AddResponseHeader=source, yupi # 为所有响应添加头部信息 "source: yupi"
+        - AddResponseHeader=source, yuapi # 为所有响应添加头部信息 "source: yuapi"
+        - AddRequestHeader=X-Request, yuapi
       routes:
         - id: api_route # 路由 ID
           uri: http://localhost:8123 # 目标 URI，所有匹配路径的请求将转发到这个地址

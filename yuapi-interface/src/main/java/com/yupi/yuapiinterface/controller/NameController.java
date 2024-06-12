@@ -27,7 +27,7 @@ public class NameController {
     }
 
     @PostMapping("/user")
-    public String getUserNameByPost(@RequestBody User user, HttpServletRequest request) {
+    public String getUserNameByPost(@RequestHeader(value="X-Request") String XRequest,@RequestBody User user, HttpServletRequest request) {
        //  // 从请求头中获取参数
        //  String accessKey = request.getHeader("accessKey");
        //  String nonce = request.getHeader("nonce");
@@ -50,8 +50,12 @@ public class NameController {
        //  if (!sign.equals(serverSign)) {
        //      throw new RuntimeException("无权限");
        //  }
-        String result = "POST 用户名字是" + user.getUsername();
-        return result;
+        if ("yuapi".equals(XRequest)) {
+            String result = "POST 用户名字是" + user.getUsername();
+            return result;
+        } else {
+            return "请求错误";
+        }
     }
 
     @GetMapping("/randomjoke")
